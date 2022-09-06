@@ -1,12 +1,16 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .models import Profile
 from django.contrib import messages
+from .forms import CustomUserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def loginUser(request):
+    page = 'login'
+
     if request.user.is_authenticated:
         return redirect('profiles')
 
@@ -32,6 +36,31 @@ def logoutUser(request):
     logout(request)
     messages.error(request, 'User was logged out')
     return redirect('login')
+
+def registerUser(request):
+    page = 'register'
+    form = CustomUserCreationForm()
+
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            #get instance session
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+
+            messages.success(request, 'User account was created!')
+
+            login(request, user)
+            return redirect('profiles')
+        else:
+            messages.error(request, 'An Error has occured during registration')
+
+    context = {
+        'page': page,
+        'form': form
+    }
+    return render(request, 'users/login_register.html', context)
 
 def profiles(request):
     profiles = Profile.objects.all()
