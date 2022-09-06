@@ -1,4 +1,3 @@
-from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .models import Profile
@@ -15,7 +14,7 @@ def loginUser(request):
         return redirect('profiles')
 
     if request.method == 'POST':
-        username = request.POST['username']
+        username = request.POST['username'].lower()
         password = request.POST['password']
 
         try:
@@ -23,6 +22,9 @@ def loginUser(request):
             user = User.objects.get(username=username)
         except:
             messages.error(request, 'Username does not exist')
+        
+
+        user = authenticate(request, username=username, password=password)
         
         if user is not None:
             login(request, user)
@@ -34,7 +36,7 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)
-    messages.error(request, 'User was logged out')
+    messages.info(request, 'User was logged out')
     return redirect('login')
 
 def registerUser(request):
@@ -54,7 +56,7 @@ def registerUser(request):
             login(request, user)
             return redirect('profiles')
         else:
-            messages.error(request, 'An Error has occured during registration')
+            messages.success(request, 'An Error has occured during registration')
 
     context = {
         'page': page,
