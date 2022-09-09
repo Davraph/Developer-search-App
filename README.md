@@ -23,8 +23,9 @@ Tempalte for FullStack Django Beginners course.
 * Postgres
 * Django REST Framework
 
-# Home Page
-<img src="./images/Devsearch Home.jpg">  
+# Home Page![Screen Shot 2022-09-09 at 1 00 51 PM](https://user-images.githubusercontent.com/98242760/189335864-a0a18e3a-966d-42ae-89b3-24e67d760b88.png)
+
+
 
 # Projects Page
 <img src="./images/DevSearch Projects.jpg">  
