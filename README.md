@@ -27,8 +27,9 @@ Tempalte for FullStack Django Beginners course.
 
 
 
-# Projects Page
-<img src="./images/DevSearch Projects.jpg">  
+# Projects Page![Screen Shot 2022-09-09 at 1 02 16 PM](https://user-images.githubusercontent.com/98242760/189336069-c3bfb411-9917-47ff-ad8a-343fba184c67.png)
+
+
 
 # Profile Page
 <img src="./images/Devsearch Profile.jpg">  
