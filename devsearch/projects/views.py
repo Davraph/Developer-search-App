@@ -1,4 +1,4 @@
-import profile
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Project
@@ -33,7 +33,7 @@ def createProject(request):
             project.owner = profile
             project.save()
             form.save()
-            return redirect('projects')
+            return redirect('account')
     
     context = {
 
@@ -51,7 +51,7 @@ def updateProject(request, pk):
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('projects')
+            return redirect('account')
     
     context = {
 
@@ -70,4 +70,6 @@ def deleteProject(request, pk):
     context = {
         'object': project
     }
-    return render(request, 'projects/delete.html', context)
+    return render(request, 'delete_template.html', context)
+
+
