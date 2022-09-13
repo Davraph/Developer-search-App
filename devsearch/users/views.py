@@ -6,6 +6,8 @@ from django.contrib import messages
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from .utils import searchProfiles
 # Create your views here.
 
 def loginUser(request):
@@ -37,6 +39,7 @@ def loginUser(request):
 
     return render(request, 'users/login_register.html')
 
+
 def logoutUser(request):
     logout(request)
     messages.info(request, 'User was logged out')
@@ -67,10 +70,12 @@ def registerUser(request):
     }
     return render(request, 'users/login_register.html', context)
 
+
 def profiles(request):
-    profiles = Profile.objects.all()
+    profiles, search_query = searchProfiles(request)
     context = {
-        'profiles': profiles
+        'profiles': profiles,
+        'search_query': search_query 
     }
     return render(request, 'users/profiles.html', context)
 
@@ -85,6 +90,8 @@ def userProfile(request, pk):
         'otherSkills': otherSkills
     }
     return render(request, 'users/user-profile.html', context)
+
+
 
 @login_required(login_url='login')
 def userAccount(request):
