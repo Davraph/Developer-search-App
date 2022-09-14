@@ -1,4 +1,5 @@
 
+from distutils.sysconfig import customize_compiler
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .models import Profile, Skill
@@ -7,7 +8,7 @@ from .forms import CustomUserCreationForm, ProfileForm, SkillForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .utils import searchProfiles
+from .utils import searchProfiles, paginateProfiles
 # Create your views here.
 
 def loginUser(request):
@@ -73,9 +74,12 @@ def registerUser(request):
 
 def profiles(request):
     profiles, search_query = searchProfiles(request)
+    custom_range, profiles = paginateProfiles(request, profiles, 1)
+
     context = {
         'profiles': profiles,
-        'search_query': search_query 
+        'search_query': search_query,
+        'custom_range': custom_range
     }
     return render(request, 'users/profiles.html', context)
 
