@@ -33,7 +33,7 @@ def loginUser(request):
         if user is not None:
             login(request,user)
             messages.success(request, 'Successful login')
-            return redirect('profiles')
+            return redirect(request.GET['next'] if 'next' in request.GET else 'account')
             
         else:
             messages.error(request, 'Username OR Password is incorrect')
@@ -74,7 +74,7 @@ def registerUser(request):
 
 def profiles(request):
     profiles, search_query = searchProfiles(request)
-    custom_range, profiles = paginateProfiles(request, profiles, 1)
+    custom_range, profiles = paginateProfiles(request, profiles, 2)
 
     context = {
         'profiles': profiles,
