@@ -35,5 +35,6 @@ Tempalte for FullStack Django Beginners course.
 <img src="./images/Devsearch Profile.jpg">  
 
 # User Inbox
-<img src="./images/Devsearch Inbox.jpg">  
+  ![Screen Shot 2022-09-18 at 11 31 09 PM](https://user-images.githubusercontent.com/98242760/190928855-6a5edf61-92c9-4170-9235-259ab3a580d9.png)
+
 
