@@ -9,7 +9,6 @@
             <br>
             <form class="form" method="POST">
                 {% csrf_token %}
-
                 {% if request.user.is_authenticated == False %}
                 <div class="form__field">
                     <label for="formInput#text">{{form.name.label}}</label>
